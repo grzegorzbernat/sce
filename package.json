@@ -25,7 +25,8 @@
     "url": "https://github.com/greggyPL/mifaretools-js/issues"
   },
   "dependencies": {
-    "aes256": "^1.0.2"
+    "aes256": "^1.0.2",
+    "random-seed": "^0.3.0"
   },
   "engines": {
     "node": ">=0.8"
