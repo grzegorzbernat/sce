@@ -1,0 +1,33 @@
+{
+  "name": "smart-card-encryption",
+  "version": "0.0.1",
+  "description": "Module to manage smart cards data based on Mifare technology..",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/greggyPL/mifaretools-js.git"
+  },
+  "keywords": [
+    "NFC",
+    "Mifare",
+    "Mifare Classic",
+    "NDEF"
+  ],
+  "author": {
+    "name": "Grzegorz Bernat",
+    "email": "g.bernat@greggy.pl"
+  },
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/greggyPL/mifaretools-js/issues"
+  },
+  "dependencies": {
+    "aes256": "^1.0.2"
+  },
+  "engines": {
+    "node": ">=0.8"
+  }
+}
