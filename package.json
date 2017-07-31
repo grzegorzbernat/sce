@@ -1,6 +1,6 @@
 {
-  "name": "smart-card-encryption",
-  "version": "0.0.1",
+  "name": "@greggy/smart-card-encryption",
+  "version": "0.1.0",
   "description": "Module to manage smart cards data based on Mifare technology..",
   "main": "index.js",
   "scripts": {
