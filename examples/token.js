@@ -1,6 +1,6 @@
 var sce = require('..');
 
-var uid = 'E63CCC50';
+var uid = 'fe0a5d60';
 
 var token;
 

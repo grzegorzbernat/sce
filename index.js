@@ -20,16 +20,15 @@ function encrypt(data, uid) {
 
 var randomString = function (seed) {
     var rand = require('random-seed').create(seed);
-    var first = rand.random().toString(36).substr(2);
-    var second = rand.random().toString(36).substr(2);
-    return first + second;
+    var first = rand.string(20);
+    var second = rand.string(20);
+    return rand.cleanString(first) + rand.cleanString(second);
 };
 
 function generateToken(uid, used) {
-    var seed = reverse((parseInt(uid.toUpperCase(), 16) + used).toString());
+    var seed = reverse((parseInt(uid.toUpperCase(), 16) + parseInt(used)).toString());
     var str = randomString(seed);
-    var token = str.substring(10, 40);
-
+    var token = str.substring(0, 20);
     return token;
 }
 
