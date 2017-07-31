@@ -21,13 +21,6 @@ function encrypt(data, uid) {
     return cipher.encrypt(data);
 }
 
-var randomString = function (seed) {
-    var rand = require('random-seed').create(seed);
-    var first = rand.string(20);
-    var second = rand.string(20);
-    return rand.cleanString(first) + rand.cleanString(second);
-};
-
 var hashCode = function(str){
     var hash = 0;
     if (str.length == 0) return hash;
@@ -41,9 +34,7 @@ var hashCode = function(str){
 
 function generateToken(uid, used) {
     var seed = reverse((parseInt(uid.toUpperCase(), 16) + parseInt(used)).toString());
-    //console.log('seed: ' + seed);
     var str = hashCode(seed);
-   // var token = str.substring(0, 20);
     var token = str;
     return token;
 };

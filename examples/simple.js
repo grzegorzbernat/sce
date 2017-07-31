@@ -4,6 +4,6 @@ var uid = 'E63CCC50';
 var text = "Ala ma kota";
 
 var encrypted = sce.encrypt(text, uid);
-console.log(encrypted);
+console.log("Encrypted: " + encrypted);
 
-console.log(sce.decrypt(encrypted, uid));
+console.log("Decrypted: " + sce.decrypt(encrypted, uid));

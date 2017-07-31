@@ -3,9 +3,8 @@ var sce = require('..');
 var uid = 'E63CCC50';
 
 var tagObject = new Object();
-tagObject.name = "Jan Kowalski";
+tagObject.id = "507f191e810c19729de860ea";
 tagObject.used  = 0;
-tagObject.work  = false;
 tagObject.token = sce.generateToken(uid, tagObject.used);
 
 var jsonString= JSON.stringify(tagObject);
