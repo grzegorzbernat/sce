@@ -1,38 +1,56 @@
-var aes256 = require('aes256');
+var aesjs = require('aes-js');
 
 function reverse(s) {
     return s.split("").reverse().join("");
 }
 
-function decrypt(data, uid) {
+function getKey(uid) {
     var _uid = uid.toUpperCase();
-    var key = (_uid.substring(4, _uid.length) + _uid + reverse(_uid) + _uid.substring(0, 4) + parseInt(uid.toUpperCase(), 16)).substring(0, 32);
-    var cipher = aes256.createCipher(key);
+    var keyString = (_uid.substring(4, _uid.length) + _uid + reverse(_uid) + _uid.substring(0, 4) + parseInt(uid.toUpperCase(), 16)).substring(0, 32);
 
-    return cipher.decrypt(data);
+    var result = [];
+    for (var i = 0; i < keyString.length; i++) {
+        result[i] = keyString.charCodeAt(i) - 48;
+    }
+
+    return result;
 }
 
 function encrypt(data, uid) {
     var _uid = uid.toUpperCase();
-    var key = (_uid.substring(4, _uid.length) + _uid + reverse(_uid) + _uid.substring(0, 4) + parseInt(uid.toUpperCase(), 16)).substring(0, 32);
-    var cipher = aes256.createCipher(key);
+    var key = getKey(_uid);
 
-    return cipher.encrypt(data);
+    var dataBytes = aesjs.utils.utf8.toBytes(data);
+
+    var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
+    var encryptedBytes = aesCtr.encrypt(dataBytes);
+
+    var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
+
+    return encryptedHex;
 }
 
-function getKey(uid) {
+function decrypt(data, uid) {
     var _uid = uid.toUpperCase();
-    var key = (_uid.substring(4, _uid.length) + _uid + reverse(_uid) + _uid.substring(0, 4) + parseInt(uid.toUpperCase(), 16)).substring(0, 32);
+    var key = getKey(_uid);
 
-    return key;
+    var encryptedBytes = aesjs.utils.hex.toBytes(data);
+    var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
+    var decryptedBytes = aesCtr.decrypt(encryptedBytes);
+
+    var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+
+    return decryptedText;
 }
 
-var hashCode = function(str){
+
+
+var hashCode = function (str) {
     var hash = 0;
     if (str.length == 0) return hash;
     for (i = 0; i < str.length; i++) {
         var char = str.charCodeAt(i);
-        hash = ((hash<<5)-hash)+char;
+        hash = ((hash << 5) - hash) + char;
         hash = hash & hash; // Convert to 32bit integer
     }
     return hash;
