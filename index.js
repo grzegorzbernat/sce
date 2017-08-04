@@ -37,15 +37,12 @@ function decrypt(data, uid) {
     var encryptedBytes = aesjs.utils.hex.toBytes(data);
     var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
     var decryptedBytes = aesCtr.decrypt(encryptedBytes);
-
     var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
 
     return decryptedText;
 }
 
-
-
-var hashCode = function (str) {
+function hashCode(str) {
     var hash = 0;
     if (str.length == 0) return hash;
     for (i = 0; i < str.length; i++) {
@@ -53,6 +50,7 @@ var hashCode = function (str) {
         hash = ((hash << 5) - hash) + char;
         hash = hash & hash; // Convert to 32bit integer
     }
+
     return hash;
 };
 
@@ -60,6 +58,7 @@ function generateToken(uid, used) {
     var seed = reverse((parseInt(uid.toUpperCase(), 16) + parseInt(used)).toString());
     var str = hashCode(seed);
     var token = str;
+
     return token;
 };
 
