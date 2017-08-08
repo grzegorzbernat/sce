@@ -55,10 +55,10 @@ function hashCode(str) {
 };
 
 function generateToken(uid, used) {
-    var seed = reverse((parseInt(uid.toUpperCase(), 16) + parseInt(used)).toString());
-    var str = hashCode(seed);
-    var token = str;
-
+    var _uid = uid.substring(0,8);
+    var seed = reverse((parseInt(_uid.toUpperCase(), 16) + parseInt(used)).toString());
+    var token = hashCode(seed);
+	
     return token;
 };
 
