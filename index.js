@@ -4,6 +4,15 @@ function reverse(s) {
     return s.split("").reverse().join("");
 }
 
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
 function getKey(uid) {
     var _uid = uid.toUpperCase();
     var keyString = (_uid.substring(4, _uid.length) + _uid + reverse(_uid) + _uid.substring(0, 4) + parseInt(uid.toUpperCase(), 16)).substring(0, 32);
@@ -33,13 +42,19 @@ function encrypt(data, uid) {
 function decrypt(data, uid) {
     var _uid = uid.toUpperCase();
     var key = getKey(_uid);
+	if(IsJsonString(data) == false)
+	{
+		var encryptedBytes = aesjs.utils.hex.toBytes(data);
+		var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
+		var decryptedBytes = aesCtr.decrypt(encryptedBytes);
+		var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
 
-    var encryptedBytes = aesjs.utils.hex.toBytes(data);
-    var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
-    var decryptedBytes = aesCtr.decrypt(encryptedBytes);
-    var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
-
-    return decryptedText;
+		return decryptedText;
+	}
+	else
+	{
+		return data;
+	}
 }
 
 function hashCode(str) {
